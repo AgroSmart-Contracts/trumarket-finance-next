@@ -58,7 +58,7 @@ const FinanceSection: React.FC<Props> = ({
         setRedeeming(false);
     }, []);
 
-    const progressPercentage = (amountFunded / requestFundAmount) * 100;
+    const progressPercentage = requestFundAmount > 0 ? (amountFunded / requestFundAmount) * 100 : 100;
 
     const renderLiquidityPoolDeposit = () => {
         if (currentMilestone === 0) {

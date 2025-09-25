@@ -11,7 +11,7 @@ export async function GET(
 
         return NextResponse.json(shipment);
     } catch (error) {
-        console.error('Error fetching ICP shipment details:', error);
-        return NextResponse.json({ error: 'Failed to fetch ICP shipment details' }, { status: 500 });
+        console.error('Error fetching shipment details:', error);
+        return NextResponse.json({ error: 'Failed to fetch shipment details' }, { status: 500 });
     }
 }

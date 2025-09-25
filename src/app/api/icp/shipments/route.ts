@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
         const shipments = await deployedDataService.getShipmentsList();
         return NextResponse.json(shipments);
     } catch (error) {
-        console.error('Error fetching ICP shipments:', error);
-        return NextResponse.json({ error: 'Failed to fetch ICP shipments' }, { status: 500 });
+        console.error('Error fetching shipments:', error);
+        return NextResponse.json({ error: 'Failed to fetch shipments' }, { status: 500 });
     }
 }

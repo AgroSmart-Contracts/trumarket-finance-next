@@ -1,5 +1,3 @@
-import type { ActorMethod } from '@dfinity/agent';
-
 export interface DocumentFile {
     _id: string;
     url: string;
@@ -51,12 +49,3 @@ export interface MilestoneDetails {
     fundsDistribution: number;
 }
 
-export interface _SERVICE {
-    createShipment: ActorMethod<[ShipmentDetails, string], undefined>;
-    createShipmentActivity: ActorMethod<[string, Activity, string], undefined>;
-    getShipmentActivity: ActorMethod<[string], Activity[]>;
-    getShipmentDetails: ActorMethod<[string], ShipmentDetails>;
-    getShipmentsList: ActorMethod<[], ShipmentDetails[]>;
-    getVersion: ActorMethod<[], string>;
-    updateMilestone: ActorMethod<[string, MilestoneDetails, string], undefined>;
-}

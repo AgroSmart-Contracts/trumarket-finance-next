@@ -2,12 +2,13 @@
 
 import { ShipmentActivity } from '@/types/shipment';
 import { useICPActivities } from '@/hooks/useICPShipments';
+import { Activity } from '@/types/icp';
 
-const RecentActivityList = ({ id }: { id: string }) => {
+const RecentActivityList = ({ id }: { id: number }) => {
     const { activities, loading } = useICPActivities(id);
 
     // Use activities directly from combined data
-    const records: ShipmentActivity[] = activities;
+    const records: Activity[] = activities;
 
     if (loading) {
         return (
@@ -37,13 +38,13 @@ const RecentActivityList = ({ id }: { id: string }) => {
                         ) : (
                             records.map((record) => (
                                 <div
-                                    key={record.id}
+                                    key={record.txHash}
                                     className="flex items-center justify-between py-2 px-3 hover:bg-gray-100 cursor-pointer rounded-md transition-colors"
                                 >
                                     <div className="flex items-center space-x-3">
                                         <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
                                         <div>
-                                            <div className="font-medium">{record.id}</div>
+                                            <div className="font-medium">{record.txHash}</div>
                                             <div className="text-sm text-gray-500">
                                                 {record.activityType}
                                             </div>

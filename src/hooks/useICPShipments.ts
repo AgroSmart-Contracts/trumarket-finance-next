@@ -17,7 +17,7 @@ export function useICPShipments() {
                 const response = await fetch('/api/icp/shipments');
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch ICP shipments');
+                    throw new Error('Failed to fetch shipments');
                 }
 
                 const data = await response.json();
@@ -45,7 +45,7 @@ export function useICPShipments() {
                     const response = await fetch('/api/icp/shipments');
 
                     if (!response.ok) {
-                        throw new Error('Failed to fetch ICP shipments');
+                        throw new Error('Failed to fetch shipments');
                     }
 
                     const data = await response.json();
@@ -77,7 +77,7 @@ export function useICPShipment(id: string) {
                 const response = await fetch(`/api/icp/shipments/${id}`);
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch ICP shipment');
+                    throw new Error('Failed to fetch shipment');
                 }
 
                 const data = await response.json();
@@ -95,7 +95,7 @@ export function useICPShipment(id: string) {
     return { shipment, loading, error };
 }
 
-export function useICPActivities(id: string) {
+export function useICPActivities(id: number) {
     const [activities, setActivities] = useState<Activity[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -111,7 +111,7 @@ export function useICPActivities(id: string) {
                 const response = await fetch(`/api/icp/shipments/${id}/activities`);
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch ICP activities');
+                    throw new Error('Failed to fetch activities');
                 }
 
                 const data = await response.json();

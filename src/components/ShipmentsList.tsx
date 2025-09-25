@@ -210,7 +210,7 @@ const ShipmentDashboard: React.FC<{
         );
     };
 
-// Helper function to convert ICP ShipmentDetails to our format
+// Helper function to convert ShipmentDetails to our format
 const convertICPToShippingDetails = (icpShipment: ICPShipmentDetails): ShippingDetails => {
     return {
         id: icpShipment.id,
@@ -251,7 +251,7 @@ export default function ShipmentsList() {
 
     const router = useRouter();
 
-    // Fetch data from ICP only
+    // Fetch data from MongoDB
     const { shipments: icpShipments, loading: icpLoading } = useICPShipments();
 
     useEffect(() => {

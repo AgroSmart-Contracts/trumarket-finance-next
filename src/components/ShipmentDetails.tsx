@@ -208,7 +208,7 @@ const ShipmentDetailsPage: React.FC<{ shipment: ShippingDetails }> = ({
                         />
                     )}
                     {shipment.nftID >= 0 ? (
-                        <RecentActivityList id={shipment.id} />
+                        <RecentActivityList id={shipment.nftID} />
                     ) : (
                         <></>
                     )}
@@ -218,7 +218,7 @@ const ShipmentDetailsPage: React.FC<{ shipment: ShippingDetails }> = ({
     );
 };
 
-// Helper function to convert ICP ShipmentDetails to our format
+// Helper function to convert ShipmentDetails to our format
 const convertICPToShippingDetails = (icpShipment: ICPShipmentDetails): ShippingDetails => {
     return {
         id: icpShipment.id,

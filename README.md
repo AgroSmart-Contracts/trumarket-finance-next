@@ -99,14 +99,49 @@ npm run dev
 
 8. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Testing the System
+
+### Test ICP Connectivity
+
+```bash
+curl http://localhost:3000/api/test/icp
+```
+
+### Get ICP Shipments
+
+```bash
+curl http://localhost:3000/api/icp/shipments
+```
+
+### Create Sample Activities for a Shipment
+
+```bash
+# First, get a shipment ID from the above command
+# Then create sample deal logs (activities) for that shipment
+curl -X POST "http://localhost:3000/api/deal-logs/seed?dealId=123"
+```
+
+### Get Activities for a Shipment
+
+```bash
+# This will now fetch from MongoDB instead of ICP
+curl http://localhost:3000/api/icp/shipments/123/activities
+```
+
 ## API Endpoints
 
 ### ICP Canister Data
 
 - `GET /api/icp/shipments` - Get shipments directly from ICP canister
 - `GET /api/icp/shipments/[id]` - Get specific shipment from ICP canister
-- `GET /api/icp/shipments/[id]/activities` - Get activities from ICP canister
+- `GET /api/icp/shipments/[id]/activities` - Get activities from MongoDB (not ICP)
 - `GET /api/test/icp` - Test ICP connectivity and configuration
+
+### Deal Logs (MongoDB)
+
+- `GET /api/deal-logs?dealId=[id]` - Get deal logs from MongoDB
+- `POST /api/deal-logs` - Create a new deal log
+- `POST /api/deal-logs/seed?dealId=[id]` - Seed sample deal logs for testing
 
 ### Combined Data (MongoDB + ICP)
 
