@@ -7,13 +7,7 @@ import { milestones } from '@/lib/static';
 import RecentActivityList from './RecentActivity';
 import FinanceSection from './FinanceSection';
 import { useICPShipment, useICPActivities } from '@/hooks/useICPShipments';
-
-const formatDate = (dateString: string) => {
-    if (!dateString) {
-        return '';
-    }
-    return new Date(dateString).toLocaleDateString();
-};
+import { formatDate } from '@/lib/dateUtils';
 
 const CustomStepper: React.FC<{
     stepsCompleted: number;

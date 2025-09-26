@@ -64,12 +64,12 @@ export interface DealDetails {
 }
 
 // Activity/Log type for deal activities
-export interface Activity {
-    activityType: string;
-    createdAt: string;
-    description: string;
-    txHash: string;
-}
+// export interface Activity {
+//     activityType: string;
+//     createdAt: string;
+//     description: string;
+//     txHash: string;
+// }
 
 // Deal log type for database operations
 export interface DealLog {

@@ -139,14 +139,14 @@ export class DealLogService {
     }
 
     // Convert deal logs to shipment activities format
-    convertToShipmentActivities(logs: DealLog[]): any[] {
-        return logs.map(log => ({
-            activityType: log.event,
-            description: log.message || `${log.event} occurred`,
-            createdAt: log.blockTimestamp.toISOString(),
-            txHash: log.txHash,
-        }));
-    }
+    // convertToShipmentActivities(logs: DealLog[]): any[] {
+    //     return logs.map(log => ({
+    //         activityType: log.event,
+    //         description: log.message || `${log.event} occurred`,
+    //         createdAt: log.blockTimestamp.toISOString(),
+    //         txHash: log.txHash,
+    //     }));
+    // }
 
 }
 

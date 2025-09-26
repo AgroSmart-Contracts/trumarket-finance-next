@@ -1,13 +1,14 @@
 'use client';
 
-import { Activity } from '@/types';
+import { DealLog } from '@/types';
 import { useICPActivities } from '@/hooks/useICPShipments';
+import { formatDate } from '@/lib/dateUtils';
 
 const RecentActivityList = ({ id }: { id: number }) => {
     const { activities, loading } = useICPActivities(id);
 
     // Use activities directly from combined data
-    const records: Activity[] = activities;
+    const records: DealLog[] = activities;
 
     if (loading) {
         return (
@@ -37,23 +38,23 @@ const RecentActivityList = ({ id }: { id: number }) => {
                         ) : (
                             records.map((record) => (
                                 <div
-                                    key={record.txHash}
+                                    key={record.id}
                                     className="flex items-center justify-between py-2 px-3 hover:bg-gray-100 cursor-pointer rounded-md transition-colors"
                                 >
                                     <div className="flex items-center space-x-3">
                                         <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
                                         <div>
-                                            <div className="font-medium">{record.txHash}</div>
+                                            <div className="font-medium">{record.id}</div>
                                             <div className="text-sm text-gray-500">
-                                                {record.activityType}
+                                                {record.event}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center space-x-4">
                                         <div className="text-right">
-                                            <div className={`font-medium`}>{record.description}</div>
+                                            <div className={`font-medium`}>{record.message}</div>
                                             <div className="text-sm text-gray-500">
-                                                {record.createdAt}
+                                                {formatDate(record.blockTimestamp)}
                                             </div>
                                         </div>
                                         <div className="text-gray-400">

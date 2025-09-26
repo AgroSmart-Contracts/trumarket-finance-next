@@ -1,4 +1,4 @@
-import { DealDetails, Activity } from '@/types';
+import { DealDetails,  DealLog } from '@/types';
 import { dealLogService } from './dealLogService';
 import { MongoClient, ServerApiVersion, Db, ObjectId } from 'mongodb';
 import { config } from '@/config';
@@ -90,7 +90,7 @@ export class DeployedDataService {
         }
     }
 
-    async getShipmentActivity(id: number): Promise<Activity[]> {
+    async getShipmentActivity(id: number): Promise<DealLog[]> {
         try {
             console.log('Fetching activities for shipment ID:', id);
 
@@ -98,10 +98,9 @@ export class DeployedDataService {
             const dealLogs = await dealLogService.findDealLogsByShipmentId(id);
 
             // Convert deal logs to activity format
-            const activities = dealLogService.convertToShipmentActivities(dealLogs);
+            // const activities = dealLogService.convertToShipmentActivities(dealLogs);
 
-            console.log(`Found ${activities.length} activities for shipment ${id}`);
-            return activities;
+            return dealLogs;
         } catch (error) {
             console.error('Error getting shipment activity from MongoDB:', error);
             throw error;

@@ -5,10 +5,7 @@ import { useRouter } from 'next/navigation';
 import { DealDetails } from '@/types';
 import { milestones } from '@/lib/static';
 import { useICPShipments } from '@/hooks/useICPShipments';
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
-};
+import { formatDate } from '@/lib/dateUtils';
 
 const ActiveShipmentCard: React.FC<{
     shipment: DealDetails;
