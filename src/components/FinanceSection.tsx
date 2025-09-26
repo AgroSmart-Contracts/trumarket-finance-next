@@ -113,7 +113,7 @@ const FinanceSection: React.FC<Props> = ({
                         <span className="text-gray-700 font-medium">Your Position</span>
                     </div>
                     <div className="text-2xl font-semibold">
-                        {(dealStatus === 8 ? amountToReclaim : shares).toFixed(2)} USDC
+                        {(dealStatus === 8 ? amountToReclaim : shares).toFixed(2)} TRU3-USDC
                     </div>
                 </div>
             )}

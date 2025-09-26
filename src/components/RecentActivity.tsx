@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { DealLog } from '@/types';
-import { useICPActivities } from '@/hooks/useICPShipments';
-import { formatDate } from '@/lib/dateUtils';
+import { DealLog } from "@/types";
+import { useICPActivities } from "@/hooks/useICPShipments";
+import { formatDate } from "@/lib/dateUtils";
 
 const RecentActivityList = ({ id }: { id: number }) => {
     const { activities, loading } = useICPActivities(id);
@@ -27,7 +27,7 @@ const RecentActivityList = ({ id }: { id: number }) => {
                     className="max-h-96 overflow-y-auto pr-2"
                     style={{
                         maskImage:
-                            'linear-gradient(to bottom, black 85%, transparent 100%)',
+                            "linear-gradient(to bottom, black 85%, transparent 100%)",
                     }}
                 >
                     <div className="space-y-1 bg-white">
@@ -44,7 +44,6 @@ const RecentActivityList = ({ id }: { id: number }) => {
                                     <div className="flex items-center space-x-3">
                                         <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
                                         <div>
-                                            <div className="font-medium">{record.id}</div>
                                             <div className="text-sm text-gray-500">
                                                 {record.event}
                                             </div>
