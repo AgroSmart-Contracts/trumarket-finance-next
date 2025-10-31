@@ -1,10 +1,10 @@
 import Scaffold from '@/components/Scaffold';
-import ShipmentsList from '@/components/ShipmentsList';
+import DealsInvestorDashboard from '@/components/DealsInvestorDashboard';
 
 export default function Home() {
   return (
     <Scaffold>
-      <ShipmentsList />
+      <DealsInvestorDashboard />
     </Scaffold>
   );
 }

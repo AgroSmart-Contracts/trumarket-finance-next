@@ -3,16 +3,29 @@
 import React from 'react';
 
 const Header: React.FC = () => (
-    <header className="bg-white border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-                <div className="flex items-center space-x-6">
-                    <img src="/logo.svg" alt="Trumarket Logo" className="h-8 cursor-pointer" />
-                    <nav className="hidden md:flex space-x-6">
-                        <a href="/" className="text-gray-700 hover:text-primary transition-colors font-medium">
-                            Deals
-                        </a>
-                    </nav>
+    <header className="bg-gradient-to-r from-white to-gray-50 shadow-md border-b-2 border-[#3CA638] sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                    <a href="/">
+                        <img
+                            src="/logo.svg"
+                            alt="Trumarket Logo"
+                            className="h-12 w-auto cursor-pointer"
+                        />
+                    </a>
+                    <div className="border-l-2 border-gray-300 pl-4">
+                        <h1 className="text-2xl font-bold text-[#2D3E57] tracking-tight">
+                            Investment Dashboard
+                        </h1>
+                        <p className="text-sm text-[#6B7280] mt-0.5">
+                            Deal-by-Deal Insights & Analytics
+                        </p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2 bg-[#3CA63815] px-4 py-2 rounded-lg border border-[#3CA638]">
+                    <div className="w-2 h-2 bg-[#3CA638] rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-[#2D8828]">Live</span>
                 </div>
             </div>
         </div>

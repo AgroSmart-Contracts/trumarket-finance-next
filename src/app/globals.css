@@ -1,86 +1,107 @@
 @import "tailwindcss";
 
 :root {
-  /* TruMarket LP Brand Colors */
-  --brand-green: #009b55;
-  --brand-green-dark: #047a47;
-  --accent-amber: #ffc34d;
-  --accent-coral: #f0625e;
-  --text-dark: #333333;
-  --surface-light: #f4f4f4;
-  --white: #ffffff;
-  --investment-blue: #1e40af;
-  --investment-blue-dark: #1e3a8a;
-  --gold: #f59e0b;
-  --success-green: #10b981;
+  /* TruMarket Brand Colors */
+  --tm-primary: #3ca638;
+  --tm-primary-dark: #2d8828;
+  --tm-primary-light: #4fd746;
+  --tm-accent: #f2a007;
+  --tm-accent-dark: #d48806;
+  --tm-accent-light: #ffb619;
+  --tm-secondary: #f28705;
+  --tm-secondary-dark: #d47404;
+  --tm-secondary-light: #ff9f1c;
+  --tm-danger: #f25e6b;
+  --tm-danger-dark: #d9486e;
+  --tm-danger-light: #ff7582;
+  --tm-neutral: #f2f2f2;
+  --tm-neutral-dark: #e0e0e0;
+  --tm-neutral-light: #fafafa;
+  --tm-white: #ffffff;
+  --tm-black: #1f2d42;
+  --tm-text: #2d3e57;
+  --tm-text-light: #6b7280;
+  --tm-text-muted: #9ca3af;
+  --tm-blue: #4ea4d9;
+  --tm-blue-secondary: #5898c7;
+
+  /* Transparent variants */
+  --tm-primary-transparent: #3ca63820;
+  --tm-accent-transparent: #f2a00720;
+  --tm-danger-transparent: #f25e6b20;
 
   /* Tailwind CSS Variables */
   --radius: 0.625rem;
-  --background: var(--white);
-  --foreground: var(--text-dark);
-  --card: var(--white);
-  --card-foreground: var(--text-dark);
-  --popover: var(--white);
-  --popover-foreground: var(--text-dark);
-  --primary: var(--brand-green);
-  --primary-foreground: var(--white);
-  --secondary: var(--surface-light);
-  --secondary-foreground: var(--text-dark);
-  --muted: var(--surface-light);
-  --muted-foreground: #666666;
-  --accent: var(--accent-amber);
-  --accent-foreground: var(--text-dark);
-  --destructive: var(--accent-coral);
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: var(--brand-green);
-  --chart-1: var(--brand-green);
-  --chart-2: var(--investment-blue);
-  --chart-3: var(--gold);
-  --chart-4: var(--accent-amber);
-  --chart-5: var(--success-green);
-  --sidebar: var(--surface-light);
-  --sidebar-foreground: var(--text-dark);
-  --sidebar-primary: var(--brand-green);
-  --sidebar-primary-foreground: var(--white);
-  --sidebar-accent: var(--surface-light);
-  --sidebar-accent-foreground: var(--text-dark);
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: var(--brand-green);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  --background: var(--tm-white);
+  --foreground: var(--tm-text);
+  --card: var(--tm-white);
+  --card-foreground: var(--tm-text);
+  --popover: var(--tm-white);
+  --popover-foreground: var(--tm-text);
+  --primary: var(--tm-primary);
+  --primary-foreground: var(--tm-white);
+  --secondary: var(--tm-neutral);
+  --secondary-foreground: var(--tm-text);
+  --muted: var(--tm-neutral);
+  --muted-foreground: var(--tm-text-light);
+  --accent: var(--tm-accent);
+  --accent-foreground: var(--tm-white);
+  --destructive: var(--tm-danger);
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: var(--tm-primary);
+  --chart-1: var(--tm-primary);
+  --chart-2: var(--tm-blue);
+  --chart-3: var(--tm-accent);
+  --chart-4: var(--tm-secondary);
+  --chart-5: var(--tm-danger);
+  --sidebar: var(--tm-neutral);
+  --sidebar-foreground: var(--tm-text);
+  --sidebar-primary: var(--tm-primary);
+  --sidebar-primary-foreground: var(--tm-white);
+  --sidebar-accent: var(--tm-neutral);
+  --sidebar-accent-foreground: var(--tm-text);
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: var(--tm-primary);
 }
 
 .dark {
-  --background: var(--text-dark);
-  --foreground: var(--white);
+  --background: var(--tm-black);
+  --foreground: var(--tm-white);
   --card: #2a2a2a;
-  --card-foreground: var(--white);
+  --card-foreground: var(--tm-white);
   --popover: #2a2a2a;
-  --popover-foreground: var(--white);
-  --primary: var(--brand-green);
-  --primary-foreground: var(--white);
+  --popover-foreground: var(--tm-white);
+  --primary: var(--tm-primary);
+  --primary-foreground: var(--tm-white);
   --secondary: #2a2a2a;
-  --secondary-foreground: var(--white);
+  --secondary-foreground: var(--tm-white);
   --muted: #2a2a2a;
   --muted-foreground: #a1a1aa;
-  --accent: var(--accent-amber);
-  --accent-foreground: var(--text-dark);
-  --destructive: var(--accent-coral);
+  --accent: var(--tm-accent);
+  --accent-foreground: var(--tm-white);
+  --destructive: var(--tm-danger);
   --border: #404040;
   --input: #404040;
-  --ring: var(--brand-green);
-  --chart-1: var(--brand-green);
-  --chart-2: var(--investment-blue);
-  --chart-3: var(--gold);
-  --chart-4: var(--accent-amber);
-  --chart-5: var(--success-green);
+  --ring: var(--tm-primary);
+  --chart-1: var(--tm-primary);
+  --chart-2: var(--tm-blue);
+  --chart-3: var(--tm-accent);
+  --chart-4: var(--tm-secondary);
+  --chart-5: var(--tm-danger);
   --sidebar: #2a2a2a;
-  --sidebar-foreground: var(--white);
-  --sidebar-primary: var(--brand-green);
-  --sidebar-primary-foreground: var(--white);
+  --sidebar-foreground: var(--tm-white);
+  --sidebar-primary: var(--tm-primary);
+  --sidebar-primary-foreground: var(--tm-white);
   --sidebar-accent: #2a2a2a;
-  --sidebar-accent-foreground: var(--white);
+  --sidebar-accent-foreground: var(--tm-white);
   --sidebar-border: #404040;
-  --sidebar-ring: var(--brand-green);
+  --sidebar-ring: var(--tm-primary);
 }
 
 body {
@@ -96,184 +117,155 @@ body {
 }
 
 /* Custom styles for TruMarket */
-.investment-gradient {
+.tm-gradient-primary {
   background: linear-gradient(
     135deg,
-    var(--brand-green) 0%,
-    var(--investment-blue) 100%
+    var(--tm-primary) 0%,
+    var(--tm-primary-dark) 100%
   );
 }
 
-.yield-gradient {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--accent-amber) 100%);
-}
-
-.investment-text-gradient {
+.tm-gradient-accent {
   background: linear-gradient(
     135deg,
-    var(--brand-green) 0%,
-    var(--investment-blue) 100%
+    var(--tm-accent) 0%,
+    var(--tm-secondary) 100%
+  );
+}
+
+.tm-gradient-hero {
+  background: linear-gradient(
+    135deg,
+    var(--tm-primary) 0%,
+    var(--tm-blue) 100%
+  );
+}
+
+.tm-text-gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--tm-primary) 0%,
+    var(--tm-blue) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.mint-text-gradient {
+.tm-text-gradient-accent {
   background: linear-gradient(
     135deg,
-    rgba(118, 251, 169, 0.891) 0%,
-    rgb(25, 115, 68) 100%
+    var(--tm-accent) 0%,
+    var(--tm-secondary) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent;
 }
 
-.yield-display {
-  font-family: "Inter", sans-serif;
-  font-weight: 800;
-  font-size: 3.5rem;
-  line-height: 1;
-  letter-spacing: -0.05em;
+/* Cards */
+.tm-card {
+  background: var(--tm-white);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.yield-text-gradient {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--accent-amber) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.yield-card {
-  border-radius: 12px;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.yield-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--yield-gradient);
-}
-
-.yield-highlight-card {
-  background: linear-gradient(135deg, #29f73769, #b6d1ff);
-}
-
-.yield-comparison-card {
-  background: linear-gradient(
-    135deg,
-    rgba(38, 25, 2, 0.05) 0%,
-    rgba(41, 31, 12, 0.05) 100%
-  );
-  border: 2px solid var(--gold);
-}
-
-.yield-shadow {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.yield-pulse {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-.investment-card {
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.investment-card-hover:hover {
+.tm-card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.investment-heading {
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: #1f2937;
+.tm-card-highlight {
+  border: 2px solid var(--tm-primary);
+  box-shadow: 0 4px 12px rgba(60, 166, 56, 0.15);
 }
 
 .metric-card {
-  background: var(--white);
+  background: var(--tm-white);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   text-align: center;
   transition: all 0.3s ease;
 }
 
 .metric-card:hover {
-  border-color: var(--brand-green);
-  box-shadow: 0 4px 12px rgba(0, 155, 85, 0.15);
+  border-color: var(--tm-primary);
+  box-shadow: 0 4px 12px rgba(60, 166, 56, 0.15);
 }
 
 .metric-value {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--brand-green);
+  color: var(--tm-primary);
   line-height: 1;
 }
 
 .metric-label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--tm-text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.btn-invest-primary {
-  background: var(--brand-green);
-  color: var(--white);
-  border: 2px solid var(--brand-green);
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  cursor: pointer;
+/* Buttons */
+.tm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-md);
   font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 14px 0 rgba(0, 155, 85, 0.25);
-}
-
-.btn-invest-primary:hover {
-  box-shadow: 0 8px 25px 0 rgba(0, 155, 85, 0.35);
-}
-
-.btn-secondary-outline {
-  background: transparent;
-  color: #374151;
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  outline: none;
 }
 
-.btn-secondary-outline:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
+.tm-btn-primary {
+  background: var(--tm-primary);
+  color: var(--tm-white);
+  border: 2px solid var(--tm-primary);
+  box-shadow: 0 4px 14px 0 rgba(60, 166, 56, 0.25);
+}
+
+.tm-btn-primary:not(:disabled):hover {
+  background: var(--tm-primary-dark);
+  border-color: var(--tm-primary-dark);
+  box-shadow: 0 8px 25px 0 rgba(60, 166, 56, 0.35);
+  transform: translateY(-2px);
+}
+
+.tm-btn-secondary {
+  background: var(--tm-white);
+  color: var(--tm-primary);
+  border: 2px solid var(--tm-primary);
+}
+
+.tm-btn-secondary:not(:disabled):hover {
+  background: var(--tm-primary);
+  color: var(--tm-white);
+  transform: translateY(-2px);
+}
+
+.tm-btn-accent {
+  background: var(--tm-accent);
+  color: var(--tm-white);
+  border: 2px solid var(--tm-accent);
+  box-shadow: 0 4px 14px 0 rgba(242, 160, 7, 0.25);
+}
+
+.tm-btn-accent:not(:disabled):hover {
+  background: var(--tm-accent-dark);
+  border-color: var(--tm-accent-dark);
+  box-shadow: 0 8px 25px 0 rgba(242, 160, 7, 0.35);
+  transform: translateY(-2px);
 }
 
 .calculator-input {

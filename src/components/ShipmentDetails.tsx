@@ -96,59 +96,59 @@ const ShipmentDetailsPage: React.FC<{ shipment: DealDetails }> = ({
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-8 bg-gray-50">
             {/* Deal Progress Overview Section */}
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-border">
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-300">
                 <div className="flex justify-between items-start mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900">Deal Progress Overview</h2>
+                    <h2 className="text-2xl font-bold text-[#2D3E57]">Deal Progress Overview</h2>
                     <div className="flex items-center gap-4">
                         <span className="text-sm text-gray-500">Last Updated: 2 hours ago</span>
-                        <div className="flex items-center gap-2 px-4 py-2 bg-green-100 rounded-lg">
-                            <div className="w-5 h-5 bg-green-600 rounded-full flex items-center justify-center">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-[#3CA63815] rounded-lg border border-[#3CA638]">
+                            <div className="w-5 h-5 bg-[#3CA638] rounded-full flex items-center justify-center">
                                 <Play className="w-3 h-3 text-white fill-current" />
                             </div>
-                            <span className="text-green-700 font-semibold text-sm">Active Deal</span>
+                            <span className="text-[#2D8828] font-semibold text-sm">Active Deal</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Key Metrics Grid */}
                 <div className="grid grid-cols-4 gap-4 mb-6">
-                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                    <div className="bg-[#4EA4D915] rounded-xl p-4 border border-[#4EA4D9]">
                         <div className="flex justify-between items-start mb-2">
-                            <span className="text-sm font-medium text-blue-600">Deal Value</span>
-                            <DollarSign className="w-5 h-5 text-blue-600" />
+                            <span className="text-sm font-medium text-[#4EA4D9]">Deal Value</span>
+                            <DollarSign className="w-5 h-5 text-[#4EA4D9]" />
                         </div>
-                        <div className="text-2xl font-bold text-blue-900">
+                        <div className="text-2xl font-bold text-[#2D3E57]">
                             ${(dealValue / 1000).toFixed(0)}K
                         </div>
                     </div>
-                    <div className="bg-green-50 rounded-xl p-4 border border-green-100">
+                    <div className="bg-[#3CA63815] rounded-xl p-4 border border-[#3CA638]">
                         <div className="flex justify-between items-start mb-2">
-                            <span className="text-sm font-medium text-green-600">Progress</span>
-                            <TrendingUp className="w-5 h-5 text-green-600" />
+                            <span className="text-sm font-medium text-[#3CA638]">Progress</span>
+                            <TrendingUp className="w-5 h-5 text-[#3CA638]" />
                         </div>
-                        <div className="text-2xl font-bold text-green-900">{progress}%</div>
+                        <div className="text-2xl font-bold text-[#2D3E57]">{progress}%</div>
                     </div>
-                    <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
+                    <div className="bg-[#F2A00715] rounded-xl p-4 border border-[#F2A007]">
                         <div className="flex justify-between items-start mb-2">
-                            <span className="text-sm font-medium text-yellow-600">Days Elapsed</span>
-                            <Calendar className="w-5 h-5 text-yellow-600" />
+                            <span className="text-sm font-medium text-[#F2A007]">Days Elapsed</span>
+                            <Calendar className="w-5 h-5 text-[#F2A007]" />
                         </div>
-                        <div className="text-2xl font-bold text-yellow-900">{daysSinceStart}</div>
+                        <div className="text-2xl font-bold text-[#2D3E57]">{daysSinceStart}</div>
                     </div>
-                    <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                    <div className="bg-[#4EA4D915] rounded-xl p-4 border border-[#4EA4D9]">
                         <div className="flex justify-between items-start mb-2">
-                            <span className="text-sm font-medium text-purple-600">ETA</span>
-                            <Timer className="w-5 h-5 text-purple-600" />
+                            <span className="text-sm font-medium text-[#4EA4D9]">ETA</span>
+                            <Timer className="w-5 h-5 text-[#4EA4D9]" />
                         </div>
-                        <div className="text-2xl font-bold text-purple-900">{daysUntilEnd} days</div>
+                        <div className="text-2xl font-bold text-[#2D3E57]">{daysUntilEnd} days</div>
                     </div>
                 </div>
 
                 {/* Deal Information Card */}
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 border border-gray-200 cursor-pointer hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-r from-[#4EA4D910] to-[#3CA63810] rounded-xl p-6 border border-gray-300 cursor-pointer hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start">
                         <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">{shipment.name}</h3>
+                            <h3 className="text-xl font-bold text-[#2D3E57] mb-3">{shipment.name}</h3>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <div className="flex items-center gap-2 mb-1">
@@ -192,9 +192,6 @@ const ShipmentDetailsPage: React.FC<{ shipment: DealDetails }> = ({
                                 </div>
                             </div>
                             <p className="text-xs text-gray-500 mt-2">Identifier: #{shipment.id.slice(0, 24)}</p>
-                        </div>
-                        <div className="ml-4">
-                            <X className="w-6 h-6 text-gray-400" />
                         </div>
                     </div>
                 </div>
