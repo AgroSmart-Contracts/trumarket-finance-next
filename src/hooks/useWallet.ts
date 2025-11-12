@@ -1,209 +1,319 @@
 'use client';
 
-import { BlockchainClient } from '@/lib/BlockchainClient';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { JsonRpcSigner, ethers } from 'ethers';
+
+import { BlockchainClient } from '@/lib/BlockchainClient';
 import { Wallet } from '@/types/wallet';
-import { useConfig } from './useConfig';
+
+const DISCONNECT_FLAG_KEY = 'tm_wallet_disconnected';
 
 const getProvider = () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-        return undefined;
-    }
+    if (typeof window === 'undefined' || !window.ethereum) return undefined;
     return new ethers.BrowserProvider(window.ethereum);
 };
 
 const useWallet = () => {
-    const config = useConfig();
-    const [wallet, setWallet] = useState<Wallet>();
-    const [connectedAddress, setConnectedAddress] = useState<string>();
-    const [signer, setSigner] = useState<JsonRpcSigner>();
-    const [network, setNetwork] = useState<string>();
 
-    const provider = getProvider();
+    const [wallet, setWallet] = useState<Wallet | undefined>();
+    const [connectedAddress, setConnectedAddress] = useState<string | undefined>();
+    const [signer, setSigner] = useState<JsonRpcSigner | undefined>();
+    const [network, setNetwork] = useState<string | undefined>();
 
-    if (!provider) {
-        return { error: 'MetaMask not detected!' };
-    }
+    const [isDisconnected, setIsDisconnected] = useState<boolean>(() => {
+        if (typeof window === 'undefined') return false;
+        try {
+            return localStorage.getItem(DISCONNECT_FLAG_KEY) === 'true';
+        } catch {
+            return false;
+        }
+    });
 
-    const refreshBalances = useCallback(async () => {
-        if (!connectedAddress || !config) {
+    const provider = useMemo(() => getProvider(), []);
+
+    const setDisconnectedFlag = useCallback((value: boolean) => {
+        setIsDisconnected(value);
+        if (typeof window !== 'undefined') {
+            try {
+                if (value) {
+                    localStorage.setItem(DISCONNECT_FLAG_KEY, 'true');
+                } else {
+                    localStorage.removeItem(DISCONNECT_FLAG_KEY);
+                }
+            } catch {
+                // ignore storage errors
+            }
+        }
+    }, []);
+
+    const ensureNetwork = useCallback(async () => {
+        if (typeof window === 'undefined' || !window.ethereum) return;
+
+        const chainId = process.env.NEXT_PUBLIC_EVM_CHAIN_ID || '0x2105'; // Default to Base mainnet
+        if (!chainId) return;
+
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId }],
+            });
+        } catch (switchError: any) {
+            if (switchError?.code === 4902) {
+                console.error('Chain not added to MetaMask');
+            } else {
+                console.error('Failed to switch network:', switchError);
+            }
+        }
+    }, []);
+
+    const getNetwork = useCallback(async () => {
+        if (!provider) return;
+        try {
+            const net = await provider.getNetwork();
+            setNetwork(`0x${net.chainId.toString(16)}`);
+        } catch (error) {
+            console.error('Error getting network', error);
+        }
+    }, [provider]);
+
+    const refreshBalances = useCallback(
+        async () => {
+            if (!provider || !connectedAddress) return;
+
+            const investmentTokenAddress = process.env.NEXT_PUBLIC_INVESTMENT_TOKEN_CONTRACT_ADDRESS;
+            if (!investmentTokenAddress) {
+                console.warn('Investment token address not configured');
+                return;
+            }
+
+            try {
+                const balance = await provider.getBalance(connectedAddress);
+                const etherBalance = ethers.formatEther(balance);
+
+                setWallet(prev => ({
+                    label: 'Connected Wallet',
+                    address: connectedAddress,
+                    balance: +etherBalance.toString(),
+                    balanceUnderlying: prev?.balanceUnderlying ?? 0,
+                }));
+
+                try {
+                    const tokenBalance = await new BlockchainClient(
+                        investmentTokenAddress
+                    ).getBalance(connectedAddress);
+
+                    setWallet(prev =>
+                        prev
+                            ? {
+                                ...prev,
+                                balanceUnderlying: tokenBalance,
+                            }
+                            : prev
+                    );
+                } catch (error) {
+                    console.error('Error fetching token balance', error);
+                }
+            } catch (error) {
+                console.error('Error refreshing balances', error);
+            }
+        },
+        [provider, connectedAddress]
+    );
+
+    const connectMetaMask = useCallback(async () => {
+        if (typeof window === 'undefined' || !window.ethereum || !provider) {
+            console.log('MetaMask not detected!');
             return;
         }
 
         try {
-            const balance = await provider.getBalance(connectedAddress);
-            const etherBalance = ethers.formatEther(balance);
+            // Explicit user intent to connect
+            setDisconnectedFlag(false);
 
-            setWallet((prev) => ({
+            await ensureNetwork();
+
+            await window.ethereum.request({
+                method: 'eth_requestAccounts',
+            });
+
+            const newSigner = await provider.getSigner();
+            const addr = await newSigner.getAddress();
+
+            setConnectedAddress(addr);
+            setSigner(newSigner);
+            setWallet({
                 label: 'Connected Wallet',
-                address: connectedAddress,
-                balance: +etherBalance.toString(),
-                balanceUnderlying: prev?.balanceUnderlying || 0, // Keep previous value while fetching
-            }));
+                address: addr,
+                balance: 0,
+                balanceUnderlying: 0,
+            });
 
-            // Fetch token balance separately (can be slow)
-            try {
-                const tokenBalance = await new BlockchainClient(
-                    config.investmentTokenAddress
-                ).getBalance(connectedAddress);
-                setWallet((prev) => ({
-                    ...prev!,
-                    balanceUnderlying: tokenBalance,
-                }));
-            } catch (error) {
-                console.error('Error fetching token balance', error);
-            }
-        } catch (error) {
-            console.error('Error refreshing balances', error);
+            await getNetwork();
+            await refreshBalances();
+        } catch (err) {
+            console.warn(`did not connect: ${err}`);
         }
-    }, [connectedAddress, config, provider]);
+    }, [provider, ensureNetwork, getNetwork, refreshBalances, setDisconnectedFlag]);
 
-    useEffect(() => {
-        refreshBalances();
-    }, [connectedAddress, refreshBalances]);
-
-    // Refresh balances when config becomes available (if already connected)
-    useEffect(() => {
-        if (connectedAddress && config) {
-            refreshBalances();
-        }
-    }, [config]); // Only depend on config, refreshBalances is stable
-
-    const ensureNetwork = async () => {
-        if (window.ethereum && config) {
+    const disconnect = useCallback(async () => {
+        // Try to revoke permissions (MetaMask-specific; ignore if unsupported)
+        if (typeof window !== 'undefined' && window.ethereum) {
             try {
                 await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: config.evmChainId }],
+                    method: 'wallet_revokePermissions',
+                    params: [{ eth_accounts: {} }],
                 });
-            } catch (switchError: any) {
-                // This error code indicates that the chain has not been added to MetaMask
-                if (switchError.code === 4902) {
-                    console.error('Chain not added to MetaMask');
-                } else {
-                    console.error('Failed to switch network:', switchError);
-                }
-            }
-        }
-    };
-
-    const connectMetaMask = async () => {
-        if (window.ethereum) {
-            try {
-                await ensureNetwork();
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const signer = await provider.getSigner();
-                const connectedAddress = await signer.getAddress();
-
-                setConnectedAddress(connectedAddress);
-                setSigner(signer);
             } catch (err) {
-                console.warn(`did not connect: ${err}`);
-            }
-        } else {
-            console.log('MetaMask not detected!');
-        }
-    };
-
-    const getNetwork = async () => {
-        if (provider) {
-            try {
-                const network = await provider.getNetwork();
-                setNetwork(`0x${network.chainId.toString(16)}`);
-            } catch (error) {
-                console.error('Error getting network', error);
+                console.warn('Failed to revoke MetaMask permissions', err);
             }
         }
-    };
 
-    // Check for connected accounts immediately (don't wait for config)
+        setConnectedAddress(undefined);
+        setSigner(undefined);
+        setWallet(undefined);
+        setNetwork(undefined);
+
+        setDisconnectedFlag(true);
+    }, [setDisconnectedFlag]);
+
+    // Refresh balances when address changes
     useEffect(() => {
-        if (typeof window === 'undefined' || !window.ethereum || !provider) return;
+        if (connectedAddress) {
+            refreshBalances();
+        }
+    }, [connectedAddress, refreshBalances]);
 
-        const ethereum = window.ethereum;
+    // Refresh when config becomes available (if already connected)
+    useEffect(() => {
+        if (connectedAddress) {
+            refreshBalances();
+        }
+    }, [connectedAddress, refreshBalances]);
+
+    // Auto-connect on load if:
+    // - Not explicitly disconnected
+    // - Wallet is available
+    useEffect(() => {
+        if (
+            isDisconnected ||
+            typeof window === 'undefined' ||
+            !window.ethereum ||
+            !provider
+        ) {
+            return;
+        }
+
         (async () => {
             try {
-                const accounts = await ethereum.request({
+                const accounts: string[] = await window.ethereum?.request({
                     method: 'eth_accounts',
                 });
 
-                if (accounts.length) {
-                    const signer = await provider.getSigner();
-                    const connectedAddress = await signer.getAddress();
+                if (accounts && accounts.length) {
+                    const newSigner = await provider.getSigner();
+                    const addr = await newSigner.getAddress();
 
-                    // Set address immediately for fast UI update
-                    setConnectedAddress(connectedAddress);
-                    setSigner(signer);
-
-                    // Set wallet with address immediately (balances will be fetched later)
+                    setConnectedAddress(addr);
+                    setSigner(newSigner);
                     setWallet({
                         label: 'Connected Wallet',
-                        address: connectedAddress,
+                        address: addr,
                         balance: 0,
                         balanceUnderlying: 0,
                     });
 
-                    // Ensure network and get network info (can happen in parallel)
-                    if (config) {
-                        await ensureNetwork();
-                    }
-                    getNetwork();
+                    await getNetwork();
+                    await ensureNetwork();
+                    await refreshBalances();
                 }
             } catch (error) {
                 console.error('Error checking connected accounts', error);
             }
         })();
-    }, [provider]); // Only depend on provider, not config
+    }, [
+        isDisconnected,
+        provider,
+        ensureNetwork,
+        getNetwork,
+        refreshBalances,
+    ]);
 
-    // Set up event listeners and ensure network once config is available
+    // Event listeners: chain & account changes
     useEffect(() => {
-        if (typeof window === 'undefined' || !window.ethereum || !config) return;
+        if (
+            typeof window === 'undefined' ||
+            !window.ethereum ||
+            !provider
+        ) {
+            return;
+        }
 
-        const ethereum = window.ethereum;
+        const { ethereum } = window;
 
         const handleChainChanged = (chainId: string) => {
             setNetwork(chainId);
         };
 
         const handleAccountsChanged = async (accounts: string[]) => {
-            if (accounts.length) {
-                const signer = await provider.getSigner();
-                const connectedAddress = await signer.getAddress();
-                setConnectedAddress(connectedAddress);
-                setSigner(signer);
-                setWallet({
-                    label: 'Connected Wallet',
-                    address: connectedAddress,
-                    balance: 0,
-                    balanceUnderlying: 0,
-                });
-                refreshBalances();
-            } else {
+            // If user disconnected from MetaMask UI
+            if (!accounts || accounts.length === 0) {
                 setConnectedAddress(undefined);
                 setSigner(undefined);
                 setWallet(undefined);
+                setDisconnectedFlag(true);
+                return;
+            }
+
+            try {
+                const newSigner = await provider.getSigner();
+                const addr = await newSigner.getAddress();
+
+                setConnectedAddress(addr);
+                setSigner(newSigner);
+                setWallet({
+                    label: 'Connected Wallet',
+                    address: addr,
+                    balance: 0,
+                    balanceUnderlying: 0,
+                });
+                setDisconnectedFlag(false);
+
+                await refreshBalances();
+            } catch (error) {
+                console.error('Error handling accountsChanged', error);
             }
         };
 
         ethereum.on('chainChanged', handleChainChanged);
         ethereum.on('accountsChanged', handleAccountsChanged);
 
-        // Ensure network is correct if already connected
-        if (connectedAddress) {
-            ensureNetwork();
-        }
-
         return () => {
             ethereum.removeListener('chainChanged', handleChainChanged);
             ethereum.removeListener('accountsChanged', handleAccountsChanged);
         };
-    }, [config, provider, connectedAddress, refreshBalances, ensureNetwork]);
+    }, [provider, refreshBalances, setDisconnectedFlag]);
+
+    // Always return a consistent shape
+    if (!provider) {
+        return {
+            wallet,
+            signer,
+            connectMetaMask: async () => {
+                console.log('MetaMask not detected!');
+            },
+            disconnect: async () => { },
+            refreshBalances: async () => { },
+            network,
+            ensureNetwork: async () => { },
+            error: 'MetaMask not detected!',
+        };
+    }
 
     return {
         wallet,
         signer,
         connectMetaMask,
+        disconnect,
         refreshBalances,
         network,
         ensureNetwork,

@@ -7,7 +7,6 @@ import { FileText, Download } from 'lucide-react';
 import { DealDetails } from '@/types';
 import useDealOwnership from '@/hooks/useDealOwnership';
 import useWallet from '@/hooks/useWallet';
-import { useConfig } from '@/hooks/useConfig';
 import LiquidityPoolDeposit from './LiquidityPoolDeposit';
 
 interface Props {
@@ -39,7 +38,6 @@ const FinanceSection: React.FC<Props> = ({
     currentMilestone,
     deal,
 }) => {
-    const config = useConfig();
     const {
         invest,
         shares,
@@ -55,6 +53,15 @@ const FinanceSection: React.FC<Props> = ({
     const [redeemError, setRedeemError] = useState<string | null>(null);
     const [isDepositOpen, setIsDepositOpen] = useState(false);
     const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
+
+    // Auto-open deposit form when wallet is connected
+    useEffect(() => {
+        if (wallet && currentMilestone === 0 && requestFundAmount - amountFunded > 0) {
+            setIsDepositOpen(true);
+        } else if (!wallet) {
+            setIsDepositOpen(false);
+        }
+    }, [wallet, currentMilestone, requestFundAmount, amountFunded]);
 
     useEffect(() => {
         refresh();
@@ -105,7 +112,8 @@ const FinanceSection: React.FC<Props> = ({
         return <></>;
     };
 
-    if (!config) return <></>;
+    const evmChainId = process.env.NEXT_PUBLIC_EVM_CHAIN_ID || '0x2105';
+    const blockchainExplorer = process.env.NEXT_PUBLIC_BLOCKCHAIN_EXPLORER || 'https://basescan.org';
 
     return (
         <div className="bg-white w-full p-6 border-2 border-gray-300 rounded-lg shadow-sm">
@@ -115,7 +123,7 @@ const FinanceSection: React.FC<Props> = ({
             {/* Vault Address */}
             <div className="rounded-lg text-xs">
                 <a
-                    href={`${config?.blockchainExplorer || 'https://etherscan.io'}/token/${vaultAddress}`}
+                    href={`${blockchainExplorer}/token/${vaultAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded font-mono flex items-center gap-2 text-gray-400 hover:text-primary transition-colors"
@@ -125,7 +133,7 @@ const FinanceSection: React.FC<Props> = ({
             </div>
 
             {/* Network Warning */}
-            {network && config && network !== config.evmChainId && (
+            {network && network !== evmChainId && (
                 <div className="text-red-500 mt-4 mb-2 text-sm">
                     Warning: Please switch to the correct network
                     <button
@@ -162,7 +170,7 @@ const FinanceSection: React.FC<Props> = ({
                                         : connectMetaMask && connectMetaMask()
                                 }
                                 className="w-full bg-[#3CA638] hover:bg-[#2D8828] text-white py-6 text-base font-semibold rounded-lg transition-all shadow-md hover:shadow-lg"
-                                disabled={!!(network && config && network !== config.evmChainId)}
+                                disabled={!!(network && network !== evmChainId)}
                             >
                                 {wallet ? 'Deposit' : 'Connect Wallet'}
                             </Button>

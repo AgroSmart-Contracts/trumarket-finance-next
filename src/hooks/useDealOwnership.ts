@@ -6,10 +6,7 @@ import useWallet from './useWallet';
 import DealVaultAbi from '@/lib/abis/DealVault.abi';
 import ERC20Abi from '@/lib/abis/ERC20.abi';
 import DealsManagerAbi from '@/lib/abis/DealsManager.abi';
-import { useConfig } from './useConfig';
-
 const useDealOwnership = (vaultAddress: string, nftID: number) => {
-    const config = useConfig();
     const [shares, setShares] = useState<number>(0);
     const [amountToReclaim, setAmountToReclaim] = useState<number>(0);
     const [amountFunded, setAmountFunded] = useState<number>(0);
@@ -17,11 +14,12 @@ const useDealOwnership = (vaultAddress: string, nftID: number) => {
     const { signer } = useWallet();
 
     const refresh = useCallback(async () => {
-        if (vaultAddress && signer && window.ethereum && config) {
+        const dealsManagerAddress = process.env.NEXT_PUBLIC_DEALS_MANAGER_ADDRESS;
+        if (vaultAddress && signer && window.ethereum && dealsManagerAddress) {
             try {
                 const provider = new ethers.BrowserProvider(window.ethereum);
                 const manager = new ethers.Contract(
-                    config.dealsManagerAddress,
+                    dealsManagerAddress,
                     DealsManagerAbi,
                     provider
                 );
@@ -62,7 +60,7 @@ const useDealOwnership = (vaultAddress: string, nftID: number) => {
                 console.error('Error refreshing deal ownership', error);
             }
         }
-    }, [vaultAddress, signer, config, nftID]);
+    }, [vaultAddress, signer, nftID]);
 
     const redeem = async () => {
         if (window.ethereum && vaultAddress && signer) {
@@ -85,7 +83,10 @@ const useDealOwnership = (vaultAddress: string, nftID: number) => {
 
     const invest = useCallback(
         async (amount: number) => {
-            if (!signer || !vaultAddress || !config) {
+            const investmentTokenAddress = process.env.NEXT_PUBLIC_INVESTMENT_TOKEN_CONTRACT_ADDRESS;
+            const investmentTokenDecimals = process.env.NEXT_PUBLIC_INVESTMENT_TOKEN_DECIMALS || '18';
+
+            if (!signer || !vaultAddress || !investmentTokenAddress) {
                 alert('Please connect your wallet');
                 return;
             }
@@ -94,16 +95,14 @@ const useDealOwnership = (vaultAddress: string, nftID: number) => {
                 const vault = new ethers.Contract(vaultAddress, DealVaultAbi, signer);
 
                 const erc20 = new ethers.Contract(
-                    config.investmentTokenAddress,
+                    investmentTokenAddress,
                     ERC20Abi,
                     signer
                 );
 
                 const amountSerialized = parseUnits(
                     '' + amount,
-                    config.investmentTokenDecimals
-                        ? BigInt(config.investmentTokenDecimals)
-                        : BigInt(18)
+                    BigInt(investmentTokenDecimals)
                 );
 
                 // Approve vault to spend tokens
@@ -118,7 +117,7 @@ const useDealOwnership = (vaultAddress: string, nftID: number) => {
                 throw error;
             }
         },
-        [vaultAddress, signer, config]
+        [vaultAddress, signer]
     );
 
     return {
