@@ -28,13 +28,13 @@ const truncateAddress = (address: string) => {
 const WalletInfoDisplay: React.FC<{ wallet: any }> = ({ wallet }) => (
     <div className="flex flex-col space-y-3">
         <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-md">
-            <Wallet className="w-4 h-4 text-[#3CA638] flex-shrink-0" />
+            <Wallet className="w-4 h-4 text-[#4E8C37] flex-shrink-0" />
             <p className="text-xs text-gray-700 font-mono break-all">{wallet.address}</p>
         </div>
         {wallet.balanceUnderlying !== undefined && (
-            <div className="flex items-center justify-between p-3 bg-[#3CA63810] rounded-md border border-[#3CA63820]">
+            <div className="flex items-center justify-between p-3 bg-[#4E8C3710] rounded-md border border-[#4E8C3720]">
                 <span className="text-xs font-medium text-gray-600">Balance</span>
-                <span className="text-sm font-bold text-[#3CA638]">
+                <span className="text-sm font-bold text-[#4E8C37]">
                     {wallet.balanceUnderlying.toFixed(2)} USDC
                 </span>
             </div>
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b-2 border-[#3CA638]">
+        <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b-2 border-[#4E8C37]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 sm:gap-4">
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                                 AgroTrade Finance
                             </h1>
                             <div className="flex gap-2 sm:gap-4 mt-0.5 sm:mt-1">
-                                <a href="/" className="text-xs sm:text-sm font-medium text-[#3CA638] hover:text-[#2D8828] transition-colors">
+                                <a href="/" className="text-xs sm:text-sm font-medium text-[#4E8C37] hover:text-[#3A6A28] transition-colors">
                                     Deals
                                 </a>
                             </div>
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
                             <h1 className="text-base font-bold text-[#2D3E57] tracking-tight">
                                 AgroTrade Finance
                             </h1>
-                            <a href="/" className="text-xs font-medium text-[#3CA638] hover:text-[#2D8828] transition-colors">
+                            <a href="/" className="text-xs font-medium text-[#4E8C37] hover:text-[#3A6A28] transition-colors">
                                 Deals
                             </a>
                         </div>
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                                         <DropdownMenuTrigger asChild>
                                             <Button
                                                 variant="outline"
-                                                className="flex items-center gap-2 border-[#3CA638] text-[#3CA638] hover:bg-[#3CA638] hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+                                                className="flex items-center gap-2 border-[#4E8C37] text-[#4E8C37] hover:bg-[#4E8C37] hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
                                             >
                                                 <Wallet className="w-4 h-4" />
                                                 <span className="font-medium">{truncateAddress(wallet.address)}</span>
@@ -127,7 +127,7 @@ const Header: React.FC = () => {
                                         <Button
                                             variant="outline"
                                             onClick={() => setIsDialogOpen(true)}
-                                            className="flex items-center gap-2 border-[#3CA638] text-[#3CA638] hover:bg-[#3CA638] hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+                                            className="flex items-center gap-2 border-[#4E8C37] text-[#4E8C37] hover:bg-[#4E8C37] hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
                                         >
                                             <Wallet className="w-4 h-4" />
                                             <span className="font-medium">{truncateAddress(wallet.address)}</span>
@@ -157,7 +157,7 @@ const Header: React.FC = () => {
                         ) : (
                             <Button
                                 onClick={connectMetaMask}
-                                className="bg-[#3CA638] hover:bg-[#2D8828] text-white flex items-center gap-2 shadow-sm hover:shadow-md transition-all duration-200"
+                                className="bg-[#4E8C37] hover:bg-[#3A6A28] text-white flex items-center gap-2 shadow-sm hover:shadow-md transition-all duration-200"
                             >
                                 <Wallet className="w-4 h-4" />
                                 <span className="hidden sm:inline font-medium">Connect Wallet</span>

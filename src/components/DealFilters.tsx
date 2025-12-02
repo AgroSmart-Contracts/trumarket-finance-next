@@ -113,7 +113,7 @@ export default function DealFilters({ onFilterChange }: DealFiltersProps) {
                         <Filter className="w-5 h-5 text-gray-600" />
                         <h3 className="text-lg font-semibold text-gray-900">Filter Preferences</h3>
                         {hasActiveFilters && (
-                            <Badge className="bg-[#3CA63820] text-[#2D8828] border border-[#3CA638]">
+                            <Badge className="bg-[#4E8C3720] text-[#3A6A28] border border-[#4E8C37]">
                                 {getActiveFilterCount()} active
                             </Badge>
                         )}

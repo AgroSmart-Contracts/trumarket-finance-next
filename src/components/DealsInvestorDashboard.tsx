@@ -116,15 +116,15 @@ export default function DealsInvestorDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#4EA4D9]">
             <h3 className="text-sm font-medium text-gray-600 mb-2">AUM</h3>
-            <p className="text-2xl font-bold text-[#4EA4D9]">{formatCurrency(totalInvested)}</p>
+            <p className="text-2xl font-bold text-[#4EA4D9]">$1.2M USD</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#3CA638]">
+          <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#4E8C37]">
             <h3 className="text-sm font-medium text-gray-600 mb-2">Yield Generated (APY)</h3>
-            <p className="text-2xl font-bold text-[#3CA638]">{formatCurrency(totalRevenue)}</p>
+            <p className="text-2xl font-bold text-[#4E8C37]">$306K USD</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#F2A007]">
             <h3 className="text-sm font-medium text-gray-600 mb-2">Deal Value Generated</h3>
-            <p className="text-2xl font-bold text-[#F2A007]">{formatCurrency(totalRevenue)}</p>
+            <p className="text-2xl font-bold text-[#F2A007]">$10.2M USD</p>
           </div>
         </div>
 
@@ -134,7 +134,7 @@ export default function DealsInvestorDashboard() {
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-6 py-2 rounded-lg font-medium transition-all ${statusFilter === 'all'
-                ? 'bg-[#3CA638] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
+                ? 'bg-[#4E8C37] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
             >
@@ -143,7 +143,7 @@ export default function DealsInvestorDashboard() {
             <button
               onClick={() => setStatusFilter('active')}
               className={`px-6 py-2 rounded-lg font-medium transition-all ${statusFilter === 'active'
-                ? 'bg-[#3CA638] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
+                ? 'bg-[#4E8C37] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
             >
@@ -152,7 +152,7 @@ export default function DealsInvestorDashboard() {
             <button
               onClick={() => setStatusFilter('in-progress')}
               className={`px-6 py-2 rounded-lg font-medium transition-all ${statusFilter === 'in-progress'
-                ? 'bg-[#3CA638] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
+                ? 'bg-[#4E8C37] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
             >
@@ -161,7 +161,7 @@ export default function DealsInvestorDashboard() {
             <button
               onClick={() => setStatusFilter('completed')}
               className={`px-6 py-2 rounded-lg font-medium transition-all ${statusFilter === 'completed'
-                ? 'bg-[#3CA638] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
+                ? 'bg-[#4E8C37] text-white shadow-[0_4px_14px_0_rgba(60,166,56,0.25)]'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
             >
@@ -231,7 +231,7 @@ export default function DealsInvestorDashboard() {
                   <div
                     key={deal.id}
                     onClick={() => router.push(`/shipments/${deal.id}`)}
-                    className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-[#3CA638]"
+                    className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-[#4E8C37]"
                   >
                     <div className="grid grid-cols-12 gap-6 items-center">
                       {/* Deal Name */}
@@ -253,7 +253,7 @@ export default function DealsInvestorDashboard() {
                       {/* Interest Paid */}
                       <div className="col-span-3 text-center">
                         <div className="text-sm text-gray-600 mb-1">Interest Paid</div>
-                        <div className="text-lg font-semibold text-[#3CA638]">
+                        <div className="text-lg font-semibold text-[#4E8C37]">
                           {formatCurrency(interestPaid)}
                         </div>
                       </div>
@@ -261,7 +261,7 @@ export default function DealsInvestorDashboard() {
                       {/* Status */}
                       <div className="col-span-2 text-center">
                         <div className="text-sm text-gray-600 mb-2">Status</div>
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#3CA63820] text-[#2D8828] border border-[#3CA638]">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#4E8C3720] text-[#3A6A28] border border-[#4E8C37]">
                           Fully Repaid
                         </span>
                       </div>

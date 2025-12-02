@@ -40,13 +40,13 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
     return (
         <div
             className={`flex items-start justify-between p-3 sm:p-4 rounded-lg border-2 transition-all duration-300 cursor-pointer w-full max-w-full box-border min-w-0 overflow-hidden ${isCompleted
-                ? 'bg-[#dcfce7] border-[#3CA638] hover:bg-[#bbf7d0]'
+                ? 'bg-[#dcfce7] border-[#4E8C37] hover:bg-[#bbf7d0]'
                 : 'bg-white border-gray-200 opacity-60'
                 }`}
             onClick={onClick}
         >
             <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm flex-shrink-0 mr-2 sm:mr-3 ${isCompleted
-                ? 'bg-[#3CA638] text-white'
+                ? 'bg-[#4E8C37] text-white'
                 : 'bg-gray-400 text-gray-50'
                 }`}>
                 {isCompleted ? '✓' : '⏳'}
@@ -67,7 +67,7 @@ const MilestoneItem: React.FC<MilestoneItemProps> = ({
                 )}
             </div>
             {docCount !== undefined && docCount > 0 && (
-                <div className="bg-[#3CA638] text-white px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0 whitespace-nowrap ml-2">
+                <div className="bg-[#4E8C37] text-white px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0 whitespace-nowrap ml-2">
                     {docCount} Document{docCount !== 1 ? 's' : ''}
                 </div>
             )}
@@ -106,11 +106,11 @@ const ShipmentDetailsPage: React.FC<{ shipment: DealDetails }> = ({
                     <h2 className="text-xl sm:text-2xl font-bold text-[#2D3E57]">Deal Progress Overview</h2>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                         <span className="text-xs sm:text-sm text-gray-500">Last Updated: 2 hours ago</span>
-                        <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#3CA63815] rounded-lg border border-[#3CA638]">
-                            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-[#3CA638] rounded-full flex items-center justify-center">
+                        <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#4E8C3715] rounded-lg border border-[#4E8C37]">
+                            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-[#4E8C37] rounded-full flex items-center justify-center">
                                 <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white fill-current" />
                             </div>
-                            <span className="text-[#2D8828] font-semibold text-xs sm:text-sm">Active Deal</span>
+                            <span className="text-[#3A6A28] font-semibold text-xs sm:text-sm">Active Deal</span>
                         </div>
                     </div>
                 </div>
@@ -126,10 +126,10 @@ const ShipmentDetailsPage: React.FC<{ shipment: DealDetails }> = ({
                             ${(dealValue / 1000).toFixed(0)}K
                         </div>
                     </div>
-                    <div className="bg-[#3CA63815] rounded-xl p-2 sm:p-4 border border-[#3CA638]">
+                    <div className="bg-[#4E8C3715] rounded-xl p-2 sm:p-4 border border-[#4E8C37]">
                         <div className="flex justify-between items-start mb-1 sm:mb-2">
-                            <span className="text-xs sm:text-sm font-medium text-[#3CA638]">Progress</span>
-                            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#3CA638]" />
+                            <span className="text-xs sm:text-sm font-medium text-[#4E8C37]">Progress</span>
+                            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#4E8C37]" />
                         </div>
                         <div className="text-lg sm:text-xl lg:text-2xl font-bold text-[#2D3E57]">{progress}%</div>
                     </div>
@@ -150,7 +150,7 @@ const ShipmentDetailsPage: React.FC<{ shipment: DealDetails }> = ({
                 </div>
 
                 {/* Deal Information Card */}
-                <div className="bg-gradient-to-r from-[#4EA4D910] to-[#3CA63810] rounded-xl p-4 sm:p-6 border border-gray-300 cursor-pointer hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-r from-[#4EA4D910] to-[#4E8C3710] rounded-xl p-4 sm:p-6 border border-gray-300 cursor-pointer hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start">
                         <div className="flex-1 w-full">
                             <h3 className="text-lg sm:text-xl font-bold text-[#2D3E57] mb-3">{shipment.name}</h3>

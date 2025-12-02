@@ -1,6 +1,6 @@
 'use client';
 
-import { ethers, formatEther } from 'ethers';
+import { ethers, formatUnits } from 'ethers';
 import ERC20Abi from './abis/ERC20.abi';
 
 export class BlockchainClient {
@@ -29,7 +29,9 @@ export class BlockchainClient {
 
         try {
             const balance = await this.erc20.balanceOf(address);
-            return +formatEther(balance).toString();
+            // Use 6 decimals for USDC (not 18)
+            const decimals = process.env.NEXT_PUBLIC_INVESTMENT_TOKEN_DECIMALS || '6';
+            return +formatUnits(balance, Number(decimals)).toString();
         } catch (e) {
             console.error('Error getting balance', e);
             return 0;

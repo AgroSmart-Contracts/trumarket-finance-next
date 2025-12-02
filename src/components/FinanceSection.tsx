@@ -47,7 +47,7 @@ const FinanceSection: React.FC<Props> = ({
         redeem,
         dealStatus,
     } = useDealOwnership(vaultAddress, nftID);
-    const { wallet, connectMetaMask, network, ensureNetwork } = useWallet();
+    const { wallet, connectMetaMask, network, ensureNetwork, refreshBalances } = useWallet();
 
     const [redeeming, setRedeeming] = useState(false);
     const [redeemError, setRedeemError] = useState<string | null>(null);
@@ -169,7 +169,7 @@ const FinanceSection: React.FC<Props> = ({
                                         ? setIsDepositOpen(true)
                                         : connectMetaMask && connectMetaMask()
                                 }
-                                className="w-full bg-[#3CA638] hover:bg-[#2D8828] text-white py-6 text-base font-semibold rounded-lg transition-all shadow-md hover:shadow-lg"
+                                className="w-full bg-[#4E8C37] hover:bg-[#3A6A28] text-white py-6 text-base font-semibold rounded-lg transition-all shadow-md hover:shadow-lg"
                                 disabled={!!(network && network !== evmChainId)}
                             >
                                 {wallet ? 'Deposit' : 'Connect Wallet'}
@@ -183,6 +183,7 @@ const FinanceSection: React.FC<Props> = ({
                             poolCapacity={requestFundAmount - amountFunded}
                             walletBalance={wallet.balanceUnderlying || 0}
                             refresh={refresh}
+                            refreshWalletBalance={refreshBalances}
                         />
                     )}
                 </div>
@@ -197,7 +198,7 @@ const FinanceSection: React.FC<Props> = ({
                             <Button
                                 variant="outline"
                                 disabled={!deal.milestones[currentMilestone]?.docs || deal.milestones[currentMilestone].docs.length === 0}
-                                className="w-full border-2 border-gray-300 hover:border-[#3CA638] hover:bg-gray-50 text-gray-700 py-6 text-base font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-300 disabled:hover:bg-transparent"
+                                className="w-full border-2 border-gray-300 hover:border-[#4E8C37] hover:bg-gray-50 text-gray-700 py-6 text-base font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-300 disabled:hover:bg-transparent"
                             >
                                 <FileText className="w-5 h-5 mr-2" />
                                 {(!deal.milestones[currentMilestone]?.docs || deal.milestones[currentMilestone].docs.length === 0)
@@ -221,7 +222,7 @@ const FinanceSection: React.FC<Props> = ({
                                             return (
                                                 <div
                                                     key={doc._id}
-                                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-[#3CA638] hover:bg-gray-50 transition-all"
+                                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-[#4E8C37] hover:bg-gray-50 transition-all"
                                                 >
                                                     <div className="flex items-center gap-3 flex-1 min-w-0">
                                                         <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
@@ -244,7 +245,7 @@ const FinanceSection: React.FC<Props> = ({
                                                         href={doc.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex-shrink-0 px-4 py-2 bg-[#3CA638] hover:bg-[#2D8828] text-white text-sm font-medium rounded-lg transition-all"
+                                                        className="flex-shrink-0 px-4 py-2 bg-[#4E8C37] hover:bg-[#3A6A28] text-white text-sm font-medium rounded-lg transition-all"
                                                         onClick={(e) => e.stopPropagation()}
                                                     >
                                                         View Document
@@ -292,7 +293,7 @@ const FinanceSection: React.FC<Props> = ({
                         <Button
                             onClick={reclaim}
                             disabled={redeeming}
-                            className="bg-[#3CA638] hover:bg-[#2D8828] text-white mb-4"
+                            className="bg-[#4E8C37] hover:bg-[#3A6A28] text-white mb-4"
                         >
                             {redeeming ? 'Reclaiming...' : 'Reclaim'}
                         </Button>

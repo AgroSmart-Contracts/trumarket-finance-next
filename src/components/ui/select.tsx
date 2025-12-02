@@ -16,7 +16,7 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
-            "flex h-11 w-full items-center justify-between rounded-lg border-2 border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#3CA638] focus:border-[#3CA638] disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50",
+            "flex h-11 w-full items-center justify-between rounded-lg border-2 border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4E8C37] focus:border-[#4E8C37] disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50",
             className
         )}
         {...props}
@@ -115,14 +115,14 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
-            "relative flex w-full cursor-pointer select-none items-center rounded-md py-2.5 pl-10 pr-3 text-sm outline-none transition-colors hover:bg-[#3CA63820] focus:bg-[#3CA63833] focus:text-[#2D8828] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=checked]:bg-[#3CA63833] data-[state=checked]:text-[#2D8828] data-[state=checked]:font-semibold",
+            "relative flex w-full cursor-pointer select-none items-center rounded-md py-2.5 pl-10 pr-3 text-sm outline-none transition-colors hover:bg-[#4E8C3720] focus:bg-[#4E8C3733] focus:text-[#3A6A28] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=checked]:bg-[#4E8C3733] data-[state=checked]:text-[#3A6A28] data-[state=checked]:font-semibold",
             className
         )}
         {...props}
     >
         <span className="absolute left-2 flex h-5 w-5 items-center justify-center">
             <SelectPrimitive.ItemIndicator>
-                <Check className="h-4 w-4 text-[#3CA638] font-bold" />
+                <Check className="h-4 w-4 text-[#4E8C37] font-bold" />
             </SelectPrimitive.ItemIndicator>
         </span>
 

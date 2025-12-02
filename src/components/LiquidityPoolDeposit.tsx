@@ -8,6 +8,7 @@ interface Props {
     poolCapacity: number;
     invest: (amount: number) => Promise<void>;
     refresh: () => Promise<void>;
+    refreshWalletBalance?: () => Promise<void>;
 }
 
 const LiquidityPoolDeposit: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const LiquidityPoolDeposit: React.FC<Props> = ({
     poolCapacity,
     invest,
     refresh,
+    refreshWalletBalance,
 }) => {
     const [amount, setAmount] = useState('');
     const [loading, setLoading] = useState(false);
@@ -36,6 +38,10 @@ const LiquidityPoolDeposit: React.FC<Props> = ({
         try {
             await invest(Number(amount));
             await refresh();
+            // Also refresh wallet balance to show updated USDC amount
+            if (refreshWalletBalance) {
+                await refreshWalletBalance();
+            }
             setAmount('');
         } catch (err) {
             console.error(err);
@@ -88,14 +94,14 @@ const LiquidityPoolDeposit: React.FC<Props> = ({
                                 ${error
                                     ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                                     : isFocused
-                                        ? 'border-[#3CA638] focus:border-[#3CA638] focus:ring-2 focus:ring-[#3CA638]/20'
+                                        ? 'border-[#4E8C37] focus:border-[#4E8C37] focus:ring-2 focus:ring-[#4E8C37]/20'
                                         : 'border-gray-200 hover:border-gray-300'
                                 }
                             `}
                         />
                         <button
                             type="button"
-                            className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 text-sm font-semibold text-[#3CA638] hover:text-[#2D8828] bg-[#3CA638]/10 hover:bg-[#3CA638]/20 rounded-md transition-colors"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 text-sm font-semibold text-[#4E8C37] hover:text-[#3A6A28] bg-[#4E8C37]/10 hover:bg-[#4E8C37]/20 rounded-md transition-colors"
                             onClick={handleMaxClick}
                             disabled={loading}
                         >
@@ -123,7 +129,7 @@ const LiquidityPoolDeposit: React.FC<Props> = ({
                 {/* Deposit Button */}
                 <Button
                     type="submit"
-                    className="w-full bg-[#3CA638] hover:bg-[#2D8828] text-white py-6 text-base font-semibold rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#4E8C37] hover:bg-[#3A6A28] text-white py-6 text-base font-semibold rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!isValid || loading}
                 >
                     {loading ? (

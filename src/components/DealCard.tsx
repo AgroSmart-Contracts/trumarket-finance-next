@@ -13,13 +13,13 @@ interface DealCardProps {
 const getStatusColor = (status: string, currentMilestone: number) => {
   switch (status) {
     case 'proposal':
-      return 'bg-[#3CA63820] text-[#2D8828] border-[#3CA638]';
+      return 'bg-[#4E8C3720] text-[#3A6A28] border-[#4E8C37]';
     case 'confirmed':
       return currentMilestone === 0
-        ? 'bg-[#3CA63820] text-[#2D8828] border-[#3CA638]'  // Active color (green)
+        ? 'bg-[#4E8C3720] text-[#3A6A28] border-[#4E8C37]'  // Active color (green)
         : 'bg-[#4EA4D920] text-[#5898C7] border-[#4EA4D9]'; // In Progress color (blue)
     case 'finished':
-      return 'bg-[#3CA63820] text-[#2D8828] border-[#3CA638]';
+      return 'bg-[#4E8C3720] text-[#3A6A28] border-[#4E8C37]';
     default:
       return 'bg-gray-100 text-gray-800 border-gray-300';
   }
@@ -55,7 +55,7 @@ const getRiskLabel = (risk?: string) => {
 const getRiskColor = (risk?: string) => {
   if (!risk) return 'text-gray-500';
   const colors = {
-    low: 'text-[#3CA638]',
+    low: 'text-[#4E8C37]',
     medium: 'text-[#F2A007]',
     high: 'text-red-600',
   };
@@ -138,12 +138,12 @@ export default function DealCard({ deal }: DealCardProps) {
         <CardContent className="p-4 sm:p-6 pt-0">
           <div className="space-y-3">
             {/* APY - Always visible */}
-            <div className="flex items-center justify-between p-3 bg-[#3CA63820] rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-[#4E8C3720] rounded-lg">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-[#3CA638]" />
+                <TrendingUp className="w-5 h-5 text-[#4E8C37]" />
                 <span className="text-sm font-medium text-gray-700">APY</span>
               </div>
-              <span className="text-xl font-bold text-[#3CA638]">{apy.toFixed(2)}%</span>
+              <span className="text-xl font-bold text-[#4E8C37]">{apy.toFixed(2)}%</span>
             </div>
 
             {/* Total Supplied */}
