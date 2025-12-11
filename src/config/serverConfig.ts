@@ -4,7 +4,7 @@
  * NOT exposed to the client
  */
 export const serverConfig = {
-    databaseUrl: process.env.DATABASE_URL || 'mongodb+srv://trumarket-finance-next:TA5V%4022Q5TVh8rn@trumarket-dev.6dtepsu.mongodb.net/?retryWrites=true&w=majority&appName=TruMarket-dev',
+    databaseUrl: process.env.NEXT_PUBLIC_DATABASE_URL || '',
     env: process.env.NODE_ENV || 'development',
     logLevel: process.env.LOG_LEVEL || 'debug',
     prettyLogs: process.env.PRETTY_LOGS === 'true',
