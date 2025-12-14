@@ -56,7 +56,7 @@ export const InvestmentAmountCard: React.FC<InvestmentAmountCardProps> = ({
                         value={investmentAmount}
                         onChange={setInvestmentAmount}
                         icon={DollarSign}
-                    />
+                        />
                 </div>
 
                 <InvestmentInfoDisplay items={investmentInfoItems} />
