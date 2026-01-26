@@ -117,7 +117,7 @@ Update the values as needed for your environment.
 
 A short walkthrough covering account setup, funding, investing, yield tracking, and withdrawals is available here:
 
-![Demo Video](https://www.loom.com/share/76d6496f2dd04cbc92761a6355bdba08)
+https://www.loom.com/share/76d6496f2dd04cbc92761a6355bdba08
 
 ### Status
 
