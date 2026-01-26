@@ -3,8 +3,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { DealDetails } from '@/types';
-import { TrendingUp, DollarSign, Droplets, ShieldAlert, MapPin, ArrowRight, CircleCheckBig } from 'lucide-react';
-import { calculateAPY } from '@/lib/financialCalculations';
+import { TrendingUp, DollarSign, Droplets, ShieldAlert, ArrowRight, CircleCheckBig } from 'lucide-react';
+import { calculateAPY, getDealRisk } from '@/lib/financialCalculations';
+import { formatCurrency } from '@/lib/formatters';
+import { getStatusLabel } from '@/lib/dealUtils';
 
 interface DealCardProps {
   deal: DealDetails;
@@ -25,27 +27,6 @@ const getStatusColor = (status: string, currentMilestone: number) => {
   }
 };
 
-const getStatusLabel = (status: string, currentMilestone: number) => {
-  switch (status) {
-    case 'proposal':
-      return 'Active';
-    case 'confirmed':
-      return currentMilestone === 0 ? 'Active' : 'In Progress';
-    case 'finished':
-      return 'Completed';
-    default:
-      return status;
-  }
-};
-
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
 
 const getRiskLabel = (risk?: string) => {
   if (!risk) return 'N/A';
@@ -64,11 +45,12 @@ const getRiskColor = (risk?: string) => {
 
 export default function DealCard({ deal }: DealCardProps) {
   const apy = calculateAPY(deal);
+  const risk = getDealRisk(deal);
   const liquidityPoolSize = deal.liquidityPoolSize || deal.investmentAmount;
 
   // Color classes for product badges (inspired by home-next)
   const colorClasses = [
-    "bg-green-100 text-green-600",
+    "bg-[#4E8C3720] text-[#4E8C37]",
     "bg-blue-100 text-blue-600",
     "bg-purple-100 text-purple-600"
   ];
@@ -112,8 +94,8 @@ export default function DealCard({ deal }: DealCardProps) {
             {formatCurrency(deal.investmentAmount)}
           </div>
           <div className="flex flex-row space-x-2 items-center">
-            <CircleCheckBig className="w-5 h-5 text-green-600" />
-            <p className="text-sm font-semibold text-green-600">
+            <CircleCheckBig className="w-5 h-5 text-[#4E8C37]" />
+            <p className="text-sm font-semibold text-[#4E8C37]">
               {getStatusLabel(deal.status, deal.currentMilestone)}
             </p>
           </div>
@@ -170,8 +152,8 @@ export default function DealCard({ deal }: DealCardProps) {
                 <ShieldAlert className="w-4 h-4 text-gray-500" />
                 <span className="text-sm text-gray-600">Risk</span>
               </div>
-              <span className={`text-sm font-semibold ${getRiskColor(deal.risk)}`}>
-                {getRiskLabel(deal.risk)}
+              <span className={`text-sm font-semibold ${getRiskColor(risk)}`}>
+                {getRiskLabel(risk)}
               </span>
             </div>
           </div>
