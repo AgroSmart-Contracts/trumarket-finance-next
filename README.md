@@ -5,7 +5,7 @@ The TruMarket Investor Platform is the investor-facing application of TruMarket.
 The platform is designed to be clear and financial-first. Investors interact with capital allocation and portfolio tracking, while deal execution, milestone logic, and settlement are handled by TruMarket’s backend infrastructure.
 
 Live application: https://finance.trumarket.tech  
-Demo video: https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_LINK
+Demo video: https://www.loom.com/share/76d6496f2dd04cbc92761a6355bdba08
 
 ---
 
