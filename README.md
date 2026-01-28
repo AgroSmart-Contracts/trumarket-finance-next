@@ -48,7 +48,7 @@ The images below show the main investor flows. Replace with updated screenshots 
 
 ![Investor dashboard](screenshots/dashboard.png)  
 ![Deal list and risk view](screenshots/deals-list.png)  
-![Deal details and investment flow](scerenshots/deal-details.png)  
+![Deal details and investment flow](screenshots/deal-details.png)  
 ![Portfolio and yield tracking](screenshots/account.png)
 ![Deposit via Bank](screenshots/onramp.png)
 
